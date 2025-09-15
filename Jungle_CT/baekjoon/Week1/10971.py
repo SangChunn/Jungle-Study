@@ -26,7 +26,7 @@ for p in permutations(other): #other = range(1,4)   길이 3의 배열 생성, �
             break
         cost += w
         if cost >= ans: #전 순열보다 크기가 크면 예 안되겠죠
-            ok = False
+            ok = False  
             break
         cur = next
     if not ok:
