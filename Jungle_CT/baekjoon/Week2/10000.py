@@ -26,7 +26,7 @@ for x, typ in events:
         continue
 
     if typ == -1:  # 왼쪽(L) = 시작
-        # 직전 이벤트와 같은 x면, 바로 이어 붙은 것 → top을 '연속 접함(1)'으로 승격
+        # 직전 이벤트와 같은 x면, 바로 이어 붙은 것 → top을 '연속 접함(1)'
         if x == last_x:
             if stack[-1] != -1:
                 stack[-1] = 1
