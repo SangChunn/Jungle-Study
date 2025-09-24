@@ -1,3 +1,6 @@
+#10억개인데 1초면 무조건 log n 
+
+
 from sys import stdin
 
 results = []  # 결과를 저장할 리스트
@@ -15,3 +18,4 @@ while True:
 # 모든 입력을 받은 후 한번에 출력
 for result in results:
     print(result)
+

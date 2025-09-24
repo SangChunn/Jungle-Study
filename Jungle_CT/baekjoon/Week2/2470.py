@@ -64,3 +64,47 @@ for i in range(N):
 
 # 결과 출력 (오름차순으로)
 print(*sorted(result))
+########################################################
+
+from sys import stdin
+from bisect import bisect_left
+
+# 1. 입력 & 정렬
+N = int(input().strip())
+arr = list(map(int, stdin.readline().split()))
+arr.sort()
+
+# 2. 결과 변수
+best_sum = float('inf')
+ans = (0, 0)
+
+# 3. 이진탐색으로 가장 가까운 값 찾기
+def binary_search_closest(array, target):
+    """정렬된 array에서 target과 가장 가까운 값을 반환"""
+    idx = bisect_left(array, target)  # target 삽입 위치
+    candidates = []
+    if idx < len(array):
+        candidates.append(array[idx])
+    if idx > 0:
+        candidates.append(array[idx-1])
+    # candidates 중 target과 차이가 가장 작은 값 리턴
+    return min(candidates, key=lambda x: abs(x - target))
+
+# 4. 모든 원소에 대해 -a와 가까운 값 찾기
+for i, a in enumerate(arr):
+    target = -a
+    # 자기 자신을 제외하기 위해 후보를 직접 확인
+    # j-1, j, j+1 대신 함수 재사용 + 인덱스 체크
+    idx = bisect_left(arr, target)
+
+    # idx 주변 원소를 살피면서 자기 자신 제외
+    for k in (idx-1, idx):
+        if 0 <= k < N and k != i:
+            s = a + arr[k]
+            if abs(s) < abs(best_sum):
+                best_sum = s
+                ans = (a, arr[k])
+                if best_sum == 0:   # 0이면 최적이므로 바로 종료 가능
+                    break
+
+print(*sorted(ans))
